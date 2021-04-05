@@ -2,15 +2,6 @@ class Receipt < ApplicationRecord
 
   before_create :set_total_price
 
-  # def self.to_csv(options = {})
-  #   CSV.generate(options) do |csv|
-  #     csv << column_names
-  #     all.each do |receipt|
-  #       csv << product.attributes.valutes_at(*column_names)
-  #     end
-  #   end
-  # end
-
   def self.import(file)
     spreadsheet = self.open_spreadsheet(file)
     header = spreadsheet.row(1)
@@ -18,6 +9,10 @@ class Receipt < ApplicationRecord
       row = [header, spreadsheet.row(i)].transpose.to_h
       Receipt.create! self.transform_receipt(row)
     end
+  end
+
+  def self.total_income
+    pluck(:total_price).inject(:+)
   end
   
   private_class_method def self.open_spreadsheet(file)
