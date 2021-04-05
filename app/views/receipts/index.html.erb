@@ -1,0 +1,11 @@
+<h1>Receipts#index</h1>
+<p>Find me in app/views/receipts/index.html.erb</p>
+
+<%= form_with url: import_receipts_path do |form| %>
+  <%= form.file_field :receipts %>
+  <%= form.submit %>
+<% end %>
+
+<% @receipts.each do |receipt| %>
+  <p><%= receipt.buyer %></p>
+<% end %>
