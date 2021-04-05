@@ -1,18 +1,15 @@
 class Receipt < ApplicationRecord
+  belongs_to :user
 
   before_create :set_total_price
 
-  def self.import(file)
+  def self.import(file, id)
     spreadsheet = self.open_spreadsheet(file)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = [header, spreadsheet.row(i)].transpose.to_h
-      Receipt.create! self.transform_receipt(row)
+      Receipt.create! self.transform_receipt(row, id)
     end
-  end
-
-  def self.total_income
-    pluck(:total_price).inject(:+)
   end
   
   private_class_method def self.open_spreadsheet(file)
@@ -24,8 +21,9 @@ class Receipt < ApplicationRecord
     end
   end
 
-  private_class_method def self.transform_receipt(receipt)
+  private_class_method def self.transform_receipt(receipt, id)
     {
+      user_id: id,
       buyer: receipt["comprador"],
       description: receipt["descripcion del item"],
       price: receipt["precio del item"],

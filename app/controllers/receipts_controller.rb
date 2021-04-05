@@ -1,17 +1,13 @@
 class ReceiptsController < ApplicationController
-  def new
-  end
-
-  def create
-  end
+  before_action :authenticate_user!
 
   def index
-    @receipts = Receipt.all
-    @total_income = Receipt.total_income
+    @receipts = current_user.receipts
+    @total_income = current_user.total_income
   end
 
   def import
-    Receipt.import(params[:receipts])
+    Receipt.import(params[:receipts], current_user.id)
     redirect_to root_url, notice: "Receipts imported."
   end
 end
