@@ -12,6 +12,6 @@ class ReceiptsController < ApplicationController
   def import
     p params[:receipts]
     Receipt.import(params[:receipts])
-    redirect_to root_url, notice: "Products imported."
+    redirect_to root_url, notice: "Receipts imported."
   end
 end
