@@ -1,6 +1,9 @@
 class Receipt < ApplicationRecord
   belongs_to :user
 
+  validates :buyer, :description, :price, :items_count, :total_price, 
+            :seller_address, :seller, presence: true
+
   before_create :set_total_price
 
   def self.import(file, id)
