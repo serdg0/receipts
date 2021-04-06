@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :receipts, only: %i[new create] do
+  resources :receipts, only: %i[index] do
     post 'import', on: :collection
   end
   

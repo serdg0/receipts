@@ -40,8 +40,11 @@ end
 
 group :test do
   gem 'shoulda-matchers', '~> 4.0'
+  gem 'rails-controller-testing'
   gem "factory_bot_rails"
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'capybara'
+  gem 'webdrivers', '~> 4.0', require: false
 end
 
 group :development do
