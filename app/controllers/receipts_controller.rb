@@ -2,7 +2,6 @@ class ReceiptsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @receipts = current_user.receipts
     @total_income = current_user.total_income
   end
 
