@@ -1,0 +1,9 @@
+<h1>Your Receipts</h1>
+
+<%= form_with url: import_receipts_path do |form| %>
+  <%= form.file_field :receipts %>
+  <%= form.submit %>
+<% end %>
+<span>Supports .xlsx .ods .csv formats</span>
+
+<h2>Total Income: $<%= @total_income %></h2>
